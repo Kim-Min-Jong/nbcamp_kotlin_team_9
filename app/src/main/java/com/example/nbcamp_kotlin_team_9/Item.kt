@@ -4,6 +4,5 @@ interface Item {
     val name: String
     val description: String
     val price: Int
-    fun add()
-    fun remove()
+    fun displayItemInfo()
 }
