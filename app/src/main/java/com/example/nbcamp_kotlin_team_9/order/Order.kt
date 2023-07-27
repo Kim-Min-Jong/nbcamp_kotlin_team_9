@@ -1,8 +1,6 @@
 package com.example.nbcamp_kotlin_team_9.order
 
-import com.example.nbcamp_kotlin_team_9.Beverage
 import com.example.nbcamp_kotlin_team_9.Item
-import com.example.nbcamp_kotlin_team_9.UserInterface
 import java.io.BufferedReader
 import java.lang.Exception
 
@@ -32,7 +30,6 @@ class Order(private val br: BufferedReader) {
         }
     }
     private fun addVegetableCurry() {
-        //vegetableCurry.displayItemInfo()??
         println("[Vegetable Curry Menu]")
         MenuList.vegetableCurryList.forEachIndexed { idx, vegetable ->
             println("${idx+1}. ${vegetable.name} | ${vegetable.price}원 | ${vegetable.description}")
@@ -46,9 +43,9 @@ class Order(private val br: BufferedReader) {
                     vegetableCurry = MenuList.vegetableCurryList[select.toInt() - 1]
                     list.add(vegetableCurry)
                     vegetableCurry.displayItemInfo()
-                  //  list.add(MenuList.vegetableCurryList[select.toInt() - 1])
+
                 } catch (e: Exception) {
-                    println("잘못 입력하셨습니다.")
+                    println(RED + "잘못 입력하셨습니다." + RESET)
                     return
                 }
             }
@@ -65,12 +62,11 @@ class Order(private val br: BufferedReader) {
             "0" -> addCurry()
             else -> {
                 try{
-                    list.add(MenuList.chickenCurryList[select.toInt() - 1])
                     chickenCurry = MenuList.chickenCurryList[select.toInt() - 1]
                     list.add(chickenCurry)
-                        chickenCurry.displayItemInfo()
+                    chickenCurry.displayItemInfo()
                 } catch (e: Exception) {
-                    println("잘못 입력하셨습니다.")
+                    println(RED + "잘못 입력하셨습니다." + RESET)
                     return
                 }
             }
@@ -78,20 +74,20 @@ class Order(private val br: BufferedReader) {
     }
     fun addNan() {
         println("[Nan Menu]")
-//        MenuList.nanList.forEachIndexed { idx, nan ->
-//            println("${idx+1}. ${nan.name} | ${nan.price}원 | ${nan.description}")
-//        }
+        MenuList.nanList.forEachIndexed { idx, nan ->
+            println("${idx+1}. ${nan.name} | ${nan.price}원 | ${nan.description}")
+        }
         println("0. 뒤로가기")
         val select = br.readLine()
         when(select) {
-            "0" -> UserInterface().run()
+            "0" -> return
             else -> {
                 try{
-//                    list.add(MenuList.nanList[select.toInt() - 1])
-//                    nan = MenuList.nanList[select.toInt() - 1]
-//                    list.add(nan)
+                    nan = MenuList.nanList[select.toInt() - 1]
+                    list.add(nan)
+                    nan.displayItemInfo()
                 } catch (e: Exception) {
-                    println("잘못 입력하셨습니다.")
+                    println(RED + "잘못 입력하셨습니다." + RESET)
                     return
                 }
             }
@@ -106,15 +102,14 @@ class Order(private val br: BufferedReader) {
         println("0. 뒤로가기")
         val select = br.readLine()
         when(select) {
-            "0" -> UserInterface().run()
+            "0" -> return
             else -> {
                 try{
-                    // list.add(MenuList.beverageList[select.toInt() - 1])
                     beverage = MenuList.beverageList[select.toInt() - 1]
                     list.add(beverage)
                     beverage.displayItemInfo()
                 } catch (e: Exception) {
-                    println("잘못 입력하셨습니다.")
+                    println(RED + "잘못 입력하셨습니다." + RESET)
                     return
                 }
             }
@@ -122,6 +117,10 @@ class Order(private val br: BufferedReader) {
     }
 
     fun viewCart() {
+        if(list.isEmpty()) {
+            println("주문목록이 비어있습니다. 이전으로 돌아갑니다.")
+            return
+        }
         println("현재까지의 주문목록입니다.")
         printList(list)
         println("목록에서 제거하시겠습니까?")
@@ -129,12 +128,15 @@ class Order(private val br: BufferedReader) {
         val remove = br.readLine()
         when(remove) {
             "1" -> removeItem(list)
-            "2" -> confirmItem(list)
+            "2" -> {
+                confirmItem(list)
+                list.clear() // 주문 확정 후에는 리스트 비우기
+            }
         }
     }
 
     private fun confirmItem(list: ArrayList<Item>) =
-        println("총액은 ${list.sumOf { it.price }} 원 입니다")
+        println(RED + "총액은 ${list.sumOf { it.price }} 원 입니다" + RESET)
 
     private fun removeItem(list: ArrayList<Item>) {
         printList(list)
@@ -142,10 +144,10 @@ class Order(private val br: BufferedReader) {
         val num = br.readLine()
         try{
             when(val intNum = num.toInt()) {
-                in 0 until list.size -> {
+                in 0..list.size -> {
                     list.removeAt(intNum  - 1)
                 }
-                else -> println("주문 목록 범위를 벗어났습니다.")
+                else -> println(RED+"주문 목록 범위를 벗어났습니다."+RESET)
             }
         } catch (e: Exception){
             println("숫자를 입력해주세요")
@@ -153,5 +155,9 @@ class Order(private val br: BufferedReader) {
     }
     private fun printList(list: ArrayList<Item>) = list.forEachIndexed { idx, item ->
         println("${idx+1}. ${item.name} | ${item.price}원 | ${item.description}")
+    }
+    companion object {
+        const val RED = "\u001b[31m"
+        const val RESET = "\u001b[0m"
     }
 }

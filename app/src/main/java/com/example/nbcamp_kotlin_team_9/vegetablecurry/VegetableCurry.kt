@@ -1,6 +1,9 @@
-package com.example.nbcamp_kotlin_team_9
+package com.example.nbcamp_kotlin_team_9.vegetablecurry
 
-import com.example.nbcamp_kotlin_team_9.order.MenuList
+import com.example.nbcamp_kotlin_team_9.Item
+import com.example.nbcamp_kotlin_team_9.order.Order.Companion.RED
+import com.example.nbcamp_kotlin_team_9.order.Order.Companion.RESET
+
 
 class VegetableCurry(
     override val name: String,
@@ -8,7 +11,7 @@ class VegetableCurry(
     override val price: Int,
 ) : Item {
     override fun displayItemInfo() {
-        println("메뉴: ${name} | 설명: ${description} | 가격: ${price}")
+        println(RED+ "메뉴: ${name} | 설명: ${description} | 가격: ${price}"+ RESET)
 
 
     }
