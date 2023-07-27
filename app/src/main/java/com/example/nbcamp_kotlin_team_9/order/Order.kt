@@ -31,17 +31,21 @@ class Order(private val br: BufferedReader) {
         }
     }
     private fun addVegetableCurry() {
+        //vegetableCurry.displayItemInfo()??
         println("[Vegetable Curry Menu]")
-//        MenuList.vegetableCurryList.forEachIndexed { idx, vegetable ->
-//            println("${idx+1}. ${vegetable.name} | ${vegetable.price}원 | ${vegetable.description}")
-//        }
+        MenuList.vegetableCurryList.forEachIndexed { idx, vegetable ->
+            println("${idx+1}. ${vegetable.name} | ${vegetable.price}원 | ${vegetable.description}")
+        }
         println("0. 뒤로가기")
         val select = br.readLine()
         when(select) {
             "0" -> addCurry()
             else -> {
                 try{
-//                    list.add(MenuList.vegetableCurryList[select.toInt() - 1])
+                    vegetableCurry = MenuList.vegetableCurryList[select.toInt() - 1]
+                    list.add(vegetableCurry)
+                    vegetableCurry.displayItemInfo()
+                  //  list.add(MenuList.vegetableCurryList[select.toInt() - 1])
                 } catch (e: Exception) {
                     println("잘못 입력하셨습니다.")
                     return
