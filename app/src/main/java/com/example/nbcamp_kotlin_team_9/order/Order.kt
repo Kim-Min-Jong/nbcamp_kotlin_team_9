@@ -1,5 +1,6 @@
 package com.example.nbcamp_kotlin_team_9.order
 
+import com.example.nbcamp_kotlin_team_9.Beverage
 import com.example.nbcamp_kotlin_team_9.Item
 import com.example.nbcamp_kotlin_team_9.UserInterface
 import java.io.BufferedReader
@@ -55,18 +56,19 @@ class Order(private val br: BufferedReader) {
     }
     private fun addChickenCurry() {
         println("[Chicken Curry Menu]")
-//        MenuList.nanList.forEachIndexed { idx, chicken ->
-//            println("${idx+1}. ${chicken.name} | ${chicken.price}원 | ${chicken.description}")
-//        }
+        MenuList.chickenCurryList.forEachIndexed { idx, chicken ->
+            println("${idx+1}. ${chicken.name} | ${chicken.price}원 | ${chicken.description}")
+        }
         println("0. 뒤로가기")
         val select = br.readLine()
         when(select) {
             "0" -> addCurry()
             else -> {
                 try{
-//                    list.add(MenuList.chickenCurryList[select.toInt() - 1])
-//                    chickenCurry = MenuList.chickenCurryList[select.toInt() - 1]
-//                    list.add(chickenCurry)
+                    list.add(MenuList.chickenCurryList[select.toInt() - 1])
+                    chickenCurry = MenuList.chickenCurryList[select.toInt() - 1]
+                    list.add(chickenCurry)
+                        chickenCurry.displayItemInfo()
                 } catch (e: Exception) {
                     println("잘못 입력하셨습니다.")
                     return
@@ -98,18 +100,19 @@ class Order(private val br: BufferedReader) {
 
     fun addBeverage() {
         println("[Beverage Menu]")
-//        MenuList.beverageList.forEachIndexed { idx, beverage ->
-//            println("${idx+1}. ${beverage.name} | ${beverage.price}원 | ${beverage.description}")
-//        }
+        MenuList.beverageList.forEachIndexed { idx, beverage ->
+            println("${idx+1}. ${beverage.name} | ${beverage.price}원 | ${beverage.description}")
+        }
         println("0. 뒤로가기")
         val select = br.readLine()
         when(select) {
             "0" -> UserInterface().run()
             else -> {
                 try{
-//                    list.add(MenuList.beverageList[select.toInt() - 1])
-//                    beverage = MenuList.beverageList[select.toInt() - 1]
-//                    list.add(beverage)
+                    // list.add(MenuList.beverageList[select.toInt() - 1])
+                    beverage = MenuList.beverageList[select.toInt() - 1]
+                    list.add(beverage)
+                    beverage.displayItemInfo()
                 } catch (e: Exception) {
                     println("잘못 입력하셨습니다.")
                     return
@@ -147,7 +150,6 @@ class Order(private val br: BufferedReader) {
         } catch (e: Exception){
             println("숫자를 입력해주세요")
         }
-
     }
     private fun printList(list: ArrayList<Item>) = list.forEachIndexed { idx, item ->
         println("${idx+1}. ${item.name} | ${item.price}원 | ${item.description}")

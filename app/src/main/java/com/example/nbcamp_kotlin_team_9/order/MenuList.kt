@@ -1,8 +1,6 @@
-package com.example.nbcamp_kotlin_team_9.order
-
-import com.example.nbcamp_kotlin_team_9.VegetableCurry
-
-object MenuList {
+//import com.example.nbcamp_kotlin_team_9.ChickenCurry
+//
+//object MenuList {
 //    val nanList = listOf(
 //        Nan("Nan - 난", "탄두르에서 발라 구워낸 부드러운 맛의 인도식 전통 빵", 2000),
 //        Nan("Butter Nan - 버터 난", "버터를 발라 구워낸 부드러운 맛의 인도식 전통 빵", 2500),
