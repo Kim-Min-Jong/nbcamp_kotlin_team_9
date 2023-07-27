@@ -1,4 +1,4 @@
-//package com.example.nbcamp_kotlin_team_9.order
+//import com.example.nbcamp_kotlin_team_9.ChickenCurry
 //
 //object MenuList {
 //    val nanList = listOf(
